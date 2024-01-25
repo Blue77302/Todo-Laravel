@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-class UserStatus
+enum UserStatus: int
 {
     const PENDING = 0;
     const APPROVED = 1;
-    const REJECTED = 2;
+    const DENIED = 2;
     const LOCKED = 3;
 }

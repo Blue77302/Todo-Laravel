@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Mail\MyTestMail;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home',[HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/home',[HomeController::class, 'index'])->middleware(['auth', 'checkAccountStatus'])->name('home');
 
 Route::get('post',[HomeController::class, 'post'])->middleware(['auth', 'admin']);
 

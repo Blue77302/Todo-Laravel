@@ -9,6 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -25,11 +27,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            // Alert::success('Thành công'.'đăng nhập thành công');
+            return redirect()->route('home')->with('success', 'Đăng nhập thành công.');
+            // return redirect()->route("posts.list");
+        } else {
+            return back()->with('error', 'Đăng nhập thành công')->with('email', $request->email);
+        }
+        // $request->authenticate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // $request->session()->regenerate();
+
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
