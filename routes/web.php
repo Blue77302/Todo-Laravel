@@ -26,7 +26,9 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home',[HomeController::class, 'index'])->middleware(['auth', 'checkAccountStatus'])->name('home');
+Route::get('/home',[HomeController::class, 'index'])->name('home');
+
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth', 'checkAccountStatus');
 
 Route::get('post',[HomeController::class, 'post'])->middleware(['auth', 'admin']);
 
@@ -40,6 +42,5 @@ require __DIR__.'/auth.php';
 
 Route::get('/testroute', function(){
     $name="Laravel Coder";
-
     Mail::to('mailtrap.club@gmail.com')->send(new MyTestMail($name));
 });
