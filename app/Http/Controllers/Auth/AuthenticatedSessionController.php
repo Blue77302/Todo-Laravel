@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             return redirect()->route('posts.index');
         } else {
-            return back()->with('message', 'Đăng nhập thành công')->with('email', $request->email);
+            return back()->with('message', 'Đăng nhập không thành công')->with('email', $request->email);
         }
         // $request->authenticate();
 

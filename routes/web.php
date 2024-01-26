@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::get('/home',[HomeController::class, 'index'])->name('home');
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth', 'checkAccountStatus');
+Route::get('/posts', [PostController::class, 'index'])->middleware('auth', 'checkAccountStatus')->name('posts.index');
 
 Route::get('post',[HomeController::class, 'post'])->middleware(['auth', 'admin']);
 
