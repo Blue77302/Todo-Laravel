@@ -29,15 +29,15 @@ class CheckAccountStatus
 
         if ($user->status == UserStatus::PENDING) {
             $check = false;
-            $message = "Tài khoản chưa đc phê duyệt";
+            $message = "Account has not been approved";
         }
         else  if ($user->status == UserStatus::DENIED) {
             $check = false;
-            $message = "Tài khoản bị từ chối";
+            $message = "Account rejected";
         }
         else  if ($user->status == UserStatus::LOCKED) {
             $check = false;
-            $message = "Tài khoản bị khoá";
+            $message = "Account locked";
         }
         if($check) {
             return $next($request);

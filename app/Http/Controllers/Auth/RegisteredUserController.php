@@ -44,7 +44,6 @@ class RegisteredUserController extends Controller
             ]);
             if ($validator->fails()){
                 return redirect()->back()->withErrors($validator)->withInput();
-
             }
         }
 
@@ -59,6 +58,6 @@ class RegisteredUserController extends Controller
 
         Mail::to($user->email)->send(new MyTestMail($user->name));
 
-        return to_route('login')->with('message', ' Đăng kí tài khoản thành công!');
+        return to_route('login')->with('message', ' Successfully registered account!');
     }
 }
