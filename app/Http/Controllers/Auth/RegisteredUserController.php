@@ -39,15 +39,8 @@ class RegisteredUserController extends Controller
                 'first_name' => ['required', 'string', 'max:30', 'alpha' ],
                 'last_name' => ['required', 'string', 'max:30', 'alpha'],
                 'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email'], 
-                'password' => [
-                'required',
-                'string',
-                'min:8',
-                'regex:/[A-Z]/', // ít nhất một ký tự hoa
-                'regex:/[a-z]/', // ít nhất một ký tự thường
-                'regex:/[0-9]/', // ít nhất một số
-                'regex:/[@$!%*#?&]/', // ít nhất một ký tự đặc biệt
-            ],
+                'password' => ['required', 'confirmed', 'string', 'min:8', 'regex:/[A-Z]/', 'regex:/[a-z]/', 
+                'regex:/[0-9]/', 'regex:/[@$!%*#?&]/' ],
             ]);
             if ($validator->fails()){
                 return redirect()->back()->withErrors($validator)->withInput();

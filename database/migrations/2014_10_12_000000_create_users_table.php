@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default('')->nullable(false);
             $table->string('first_name', 30)->default('');
-            $table->string('last_name', 30)->default('');
+            $table->string('last_name', 20)->default('');
             $table->rememberToken();
             $table->string('email', 100);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('address')->nullable();
+            $table->string('address', 200)->nullable();
             $table->string('password');
             $table->tinyInteger('status')->default(0);
             $table->string('role')->default('user');

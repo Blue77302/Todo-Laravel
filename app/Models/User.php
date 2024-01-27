@@ -21,7 +21,7 @@ class User extends Authenticatable
         'address',
         'password' ,
         'role',
-        'status'
+        'status',
     ];
 
     // Accessor để tạo attribute 'name'
