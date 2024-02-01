@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Mail\MyTestMail;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\NewController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -22,15 +22,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('admin.show', 'show') ;
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home',[HomeController::class, 'index'])->name('home');
+Route::delete('delete-posts/{user}', [PostController::class, 'deletePostsByUser'])
+    ->name('delete-posts-by-user');
 
-Route::get('/posts', [PostController::class, 'index'])->middleware('auth', 'checkAccountStatus')->name('posts.index');
+Route::get('/users/{user}/posts', [PostController::class, 'getPostsByUser'])->name('users_posts');
 
-Route::get('post',[HomeController::class, 'post'])->middleware(['auth', 'admin']);
+Route::get('/home',[PostController::class, 'index'])->name('home');
+
+Route::get('/new', [NewController::class, 'index'])->middleware('auth', 'checkAccountStatus')->name('posts.index');
+
+// Route::get('post',[PostController::class, 'post'])->middleware(['auth', 'admin']);
+
+Route::resource('post', PostController::class)->middleware(['auth', 'admin']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

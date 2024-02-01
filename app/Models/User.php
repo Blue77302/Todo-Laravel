@@ -16,7 +16,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'first_name',
-        'last_name', 
+        'last_name',
         'email' ,
         'address',
         'password' ,
@@ -28,6 +28,11 @@ class User extends Authenticatable
     public function getNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 
 }
