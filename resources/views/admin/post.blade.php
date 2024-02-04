@@ -18,7 +18,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  <!-- Navbar -->
+    <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -32,9 +32,35 @@
       <li class="nav-item dropdown">
       </li>
     </ul>
-  </nav>
-  <!-- /.navbar -->
 
+    <ul class="navbar-nav ml-auto">
+        <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="px-4">
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+            </div>
+
+            <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+        </div>
+      </ul>
+  </nav>
+
+  <!-- /.navbar -->
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -86,22 +112,6 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    {{-- <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>DataTables</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </section> --}}
 
     <!-- Main content -->
     <section class="content">
@@ -126,6 +136,10 @@
 
               </div>
               <!-- /.card-header -->
+              {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
+              @session('message')
+              <div class="alert alert-success text-center">{{ session('message') }}</div>
+              @endsession
               <div class="card-body">
                 <table id="posts" class="table table-bordered table-striped">
                 <thead>
@@ -133,6 +147,7 @@
                   <tr>
                     <th>Thumbnail</th>
                     <th>Title</th>
+                    <th>Slug</th>
                     <th>Description</th>
                     <th>Publish_date</th>
                     <th>Status</th>
@@ -144,18 +159,21 @@
                   <tr>
                     <td>{{ $item->thumbnail }}</td>
                     <td>{{ $item->title }}</td>
+                    <td>{{ $item->slug }}</td>
                     <td>{{ $item->description }}</td>
                     <td>{{ $item->publish_date }}</td>
-                    <td>{{ $item->status }}</td>
+                    <td>{!! $item->status==0?'<button class="btn btn-danger
+                    btn-sm">Bài viết mới</button>':'<button class="btn btn-success
+                    btn-sm">Được cập nhật</button>' !!}</td>
                     <td ><a href="{{ route('post.edit', ['post' => $item]) }}" title="Edit">
                         <button class="btn btn-primary btn-sm"><i class="fa fa-edit" aria-hidden="true">
                             Edit
-                        </i></button></a>
+                        </i></button></a><br>
 
                         <a href="{{ route('post.show', ['post' => $item]) }}" title="Show">
                         <button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true">
                             Show
-                        </i></button></a>
+                        </i></button></a><br>
 
                         <form action="{{ route('post.destroy', ['post' => $item]) }}" method="post"  accept="UTF-8" style="display:inline" >
                             @method('delete')
@@ -176,9 +194,13 @@
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-end">
+        {{$data->links()}}
+      </div>
     </section>
   </div>
 </div>
+
 
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>

@@ -15,10 +15,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth()->user()->role=='admin'){
-            return $next($request);  
+        if(Auth()->user()->role=='user'){
+            return $next($request);
         }
-        
+
         abort(401);
     }
 }

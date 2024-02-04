@@ -10,11 +10,10 @@
         <div class="card-body">
         <h5 class="card-title">Thumbnail : {{ $post->thumbnail}}</h5>
         <p class="card-text">Title : {{ $post->title }}</p>
+        <p>{!! htmlspecialchars_decode($post->content) !!}</p>
         <p class="card-text">Description : {{ $post->description }}</p>
         <p class="card-text">Status : {{ $post->status}}</p>
   </div>
-
-    </hr>
-
   </div>
 </div>
+@endsection('content')

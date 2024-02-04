@@ -29,20 +29,12 @@ class AuthenticatedSessionController extends Controller
     {
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->route('posts.index');
+            return to_route('home');
         } else {
             return back()->with('message', 'Login unsuccessful')->with('email', $request->email);
         }
-        // $request->authenticate();
-
-        // $request->session()->regenerate();
-
-        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

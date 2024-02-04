@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('thumbnail', 100)->default('default_thumbnail.jpg');
-            $table->string('title', 100)->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('title', 100);
+            $table->string('slug', 100)->nullable();
             $table->string('description', 200)->nullable();
             $table->longText('content')->default('');
             $table->timestamp('publish_date')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->unsignedtinyInteger('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
