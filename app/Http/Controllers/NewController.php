@@ -10,10 +10,16 @@ class NewController extends Controller
 {
     public function index()
     {
-        $data = [
-            'items' => ['Bài viết 1', 'Bài viết 2', 'Bài viết 3'],
-        ];
 
-        return view('news.index', $data);
+        $posts = Post::where('status', 2)->get();
+        return view('allpost.list', compact('posts'));
+
     }
+
+    public function show($slug, Post $post)
+{
+    
+    $post = Post::where('slug', $slug)->where('status', 2)->first();
+    return view('news.show', compact('post'));
+}
 }

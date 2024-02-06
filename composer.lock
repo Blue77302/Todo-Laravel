@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7ce3371561adf5c87a4f098b28ad6c0",
+    "content-hash": "9665a3df594a2b2f50f9dc6cc9646d0e",
     "packages": [
         {
             "name": "brick/math",
@@ -3992,16 +3992,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "11.2.0",
+            "version": "11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "3c4021c0ec6d1180b57f40c772b51da5d4e60162"
+                "reference": "a1823c02936d53ac441471cc57298e30d5908bbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/3c4021c0ec6d1180b57f40c772b51da5d4e60162",
-                "reference": "3c4021c0ec6d1180b57f40c772b51da5d4e60162",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/a1823c02936d53ac441471cc57298e30d5908bbf",
+                "reference": "a1823c02936d53ac441471cc57298e30d5908bbf",
                 "shasum": ""
             },
             "require": {
@@ -4016,7 +4016,7 @@
                 "illuminate/support": "^10.0",
                 "maennchen/zipstream-php": "^3.1",
                 "php": "^8.2",
-                "spatie/image": "^3.3.2",
+                "spatie/image": "^3.0",
                 "spatie/laravel-package-tools": "^1.16.1",
                 "spatie/temporary-directory": "^2.2",
                 "symfony/console": "^6.4.1|^7.0"
@@ -4085,7 +4085,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/11.2.0"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/11.0.0"
             },
             "funding": [
                 {
@@ -4097,7 +4097,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-29T07:53:43+00:00"
+            "time": "2023-12-14T14:18:03+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",

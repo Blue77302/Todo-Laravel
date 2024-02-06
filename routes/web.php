@@ -33,7 +33,7 @@ Route::get('/users/{user}/posts', [PostController::class, 'getPostsByUser'])->na
 
 Route::get('/home',[PostController::class, 'index'])->name('home');
 
-Route::get('/new', [NewController::class, 'index'])->middleware('auth', 'checkAccountStatus')->name('posts.index');
+Route::get('/news', [NewController::class, 'index'])->name('allpost.list');
 
 Route::resource('post', PostController::class)->middleware(['auth', 'admin']);
 
@@ -43,5 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/news', [NewController::class, 'index']);
+Route::get('/news/{slug}', [NewController::class, 'show']);
 require __DIR__.'/auth.php';
 

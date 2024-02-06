@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Spatie\MediaLibrary\HasMedia;
-// use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Support\Str;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
     protected $table = 'posts';
     protected $attributes = [
         'status' => 0,
@@ -25,32 +25,26 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Scope cho bài viết mới
     public function scopeNew($query)
     {
         return $query->where('status', 0);
     }
 
-    // Scope cho bài viết được cập nhật
     public function scopeUpdated($query)
     {
         return $query->where('status', 1);
     }
 
-    // Scope cho bài viết đã được xuất bản
     public function scopePublished($query)
     {
         return $query->where('status', 2);
     }
 
-     // Accessor cho thumbnail
-    public function getThumbnailAttribute()
-    {
-         // Nếu cột thumbnail không rỗng, trả về đường dẫn đầy đủ
-         // Nếu không, trả về một ảnh mặc định hoặc giá trị khác tùy thuộc vào logic của bạn
-        return $this->attributes['thumbnail'] ? asset('storage/' . $this->attributes['thumbnail']) :
-        asset('images/default-thumbnail.jpg');
-    }
+    // public function getThumbnailAttribute()
+    // {
+    //     return $this->attributes['thumbnail'] ? asset('storage/' . $this->attributes['thumbnail']) :
+    //     asset('images/default-thumbnail.jpg');
+    // }
 
     protected static function boot()
     {

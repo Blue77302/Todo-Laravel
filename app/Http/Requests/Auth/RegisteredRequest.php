@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use Illuminate\Validation\Rules\Password;
 
 class RegisteredRequest extends FormRequest
 {
@@ -12,7 +12,7 @@ class RegisteredRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -40,9 +40,13 @@ class RegisteredRequest extends FormRequest
                 'max:100',
                 'unique:users,email',
             ],
-            'password' => ['required', 'confirmed', 'string', 'min:8',
-                'regex:/[A-Z]/', 'regex:/[a-z]/',
-                'regex:/[0-9]/', 'regex:/[@$!%*#?&]/' ],
+            'password' => ['required', 'confirmed',
+            Password::min(8)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            ],
         ];
     }
 }

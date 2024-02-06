@@ -14,8 +14,9 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Mail\MyTestMail;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\Auth\RegisteredRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Jobs\MailJob;
 
 class RegisteredUserController extends Controller
 {
@@ -32,28 +33,8 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(RegisteredRequest $request)
     {
-        if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(),[
-                'first_name' => ['required', 'string', 'max:30', 'alpha' ],
-                'last_name' => ['required', 'string', 'max:30', 'alpha'],
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:100',
-                    'unique:users,email',
-                ],
-                'password' => ['required', 'confirmed', 'string', 'min:8',
-                 'regex:/[A-Z]/', 'regex:/[a-z]/',
-                'regex:/[0-9]/', 'regex:/[@$!%*#?&]/' ],
-            ]);
-            if ($validator->fails()){
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-        }
-
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -63,7 +44,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Mail::to($user->email)->send(new MyTestMail($user->name));
+
+        dispatch(new MailJob($user));
 
         return to_route('login')->with('message', ' Successfully registered account!');
     }
