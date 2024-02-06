@@ -18,8 +18,8 @@ class NewController extends Controller
 
     public function show($slug, Post $post)
 {
-    
+
     $post = Post::where('slug', $slug)->where('status', 2)->first();
-    return view('news.show', compact('post'));
+    return view('user.show', compact('post'));
 }
 }

@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.layout')
 @section('content')
 @session('message')
 <div class="alert alert-success text-center">{{ session('error') }}</div>

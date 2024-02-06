@@ -48,10 +48,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <a href="{{ url('news') }}" class="" title="Add new">
+                            News
+                        </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

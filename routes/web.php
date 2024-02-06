@@ -45,6 +45,6 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/news', [NewController::class, 'index']);
-Route::get('/news/{slug}', [NewController::class, 'show']);
+Route::get('/news/{slug}', [NewController::class, 'show'])->name('news.show');;
 require __DIR__.'/auth.php';
 

@@ -29,12 +29,12 @@ class PostController extends Controller
 
         $data = Post::with('user')->where('user_id', $user->id)->orderBy('created_at','desc')->paginate(3);
 
-        return view('admin.post', compact('data', 'user'));
+        return view('user.post', compact('data', 'user'));
     }
 
     public function create()
     {
-        return view ('news.index');
+        return view ('user.create');
     }
 
     public function store(PostRequest $request)
@@ -60,14 +60,14 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('admin.show')->with('post', $post);
+        return view('user.show')->with('post', $post);
     }
 
     public function edit(Post $post)
     {
         if(Auth::id() === $post->user_id)
         {
-        return view('admin.edit')->with('post', $post);
+        return view('user.edit')->with('post', $post);
         }
         return abort('404');
     }
